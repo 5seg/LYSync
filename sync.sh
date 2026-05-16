@@ -20,7 +20,7 @@ fi
 awk 'NR==FNR{seen[$0];next} !($0 in seen)' "$URLS_FILE" "$TMP_CURRENT" \
 | while read -r url; do
     echo "Downloading: $url"
-    yt-dlp -P "$SAVE_DIR" "$url"
+    yt-dlp -t mp3 --embed-metadata --embed-thumbnail --retries infinite --fragment-retries infinite --retry-sleep fragment:exp=1:120 --sleep-interval 10 -P "$SAVE_DIR" "$url"
 done
 
 mv "$TMP_CURRENT" "$URLS_FILE"
